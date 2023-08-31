@@ -8,21 +8,22 @@
 import SwiftUI
 
 struct StatusBarCursorLocationLabel: View {
-    @Environment(\.controlActiveState)
-    private var controlActive
+  @Environment(\.controlActiveState)
+  private var controlActive
 
-    @EnvironmentObject private var model: DebugAreaViewModel
+  @EnvironmentObject private var model: DebugAreaViewModel
 
-    var body: some View {
-        Text("Line: \(model.cursorLocation.line)  Col: \(model.cursorLocation.column)")
-            .font(model.toolbarFont)
-            .foregroundColor(foregroundColor)
-            .fixedSize()
-            .lineLimit(1)
-            .onHover { isHovering($0) }
-    }
+  var body: some View {
+    Text("Line: \(model.cursorLocation.line)  Col: \(model.cursorLocation.column)")
+      .font(model.toolbarFont)
+      .foregroundColor(foregroundColor)
+      .fixedSize()
+      .lineLimit(1)
+      .onHover { isHovering($0) }
+  }
 
-    private var foregroundColor: Color {
-        controlActive == .inactive ? Color(nsColor: .disabledControlTextColor) : Color(nsColor: .secondaryLabelColor)
-    }
+  private var foregroundColor: Color {
+    controlActive == .inactive
+      ? Color(nsColor: .disabledControlTextColor) : Color(nsColor: .secondaryLabelColor)
+  }
 }

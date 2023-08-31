@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct StatusBarMaximizeButton: View {
-    @EnvironmentObject private var model: DebugAreaViewModel
+  @EnvironmentObject private var model: DebugAreaViewModel
 
-    var body: some View {
-        Button {
-            model.isMaximized.toggle()
-        } label: {
-            Image(systemName: "arrowtriangle.up.square")
-                .foregroundColor(model.isMaximized ? .accentColor : .secondary)
-        }
-        .buttonStyle(.plain)
+  var body: some View {
+    Button {
+      model.isMaximized.toggle()
+    } label: {
+      Image(systemName: "arrowtriangle.up.square")
+        .foregroundColor(model.isMaximized ? .accentColor : .secondary)
     }
+    .buttonStyle(.plain)
+  }
 }

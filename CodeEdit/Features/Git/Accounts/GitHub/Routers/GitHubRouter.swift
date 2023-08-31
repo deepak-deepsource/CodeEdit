@@ -8,39 +8,39 @@
 import Foundation
 
 enum GitHubRouter: GitJSONPostRouter {
-    case deleteReference(GitRouterConfiguration, String, String, String)
+  case deleteReference(GitRouterConfiguration, String, String, String)
 
-    var configuration: GitRouterConfiguration? {
-        switch self {
-        case let .deleteReference(config, _, _, _): return config
-        }
+  var configuration: GitRouterConfiguration? {
+    switch self {
+    case let .deleteReference(config, _, _, _): return config
     }
+  }
 
-    var method: GitHTTPMethod {
-        switch self {
-        case .deleteReference:
-            return .DELETE
-        }
+  var method: GitHTTPMethod {
+    switch self {
+    case .deleteReference:
+      return .DELETE
     }
+  }
 
-    var encoding: GitHTTPEncoding {
-        switch self {
-        case .deleteReference:
-            return .url
-        }
+  var encoding: GitHTTPEncoding {
+    switch self {
+    case .deleteReference:
+      return .url
     }
+  }
 
-    var params: [String: Any] {
-        switch self {
-        case .deleteReference:
-            return [:]
-        }
+  var params: [String: Any] {
+    switch self {
+    case .deleteReference:
+      return [:]
     }
+  }
 
-    var path: String {
-        switch self {
-        case let .deleteReference(_, owner, repo, reference):
-            return "repos/\(owner)/\(repo)/git/refs/\(reference)"
-        }
+  var path: String {
+    switch self {
+    case let .deleteReference(_, owner, repo, reference):
+      return "repos/\(owner)/\(repo)/git/refs/\(reference)"
     }
+  }
 }

@@ -5,15 +5,15 @@
 //  Created by Khan Winter on 6/5/22.
 //
 
-import Foundation
 import Combine
+import Foundation
 
 class WorkspaceNotificationModel: ObservableObject {
 
-    @Published var highlightedFileItem: CEWorkspaceFile?
+  @Published var highlightedFileItem: CEWorkspaceFile?
 
-    init() {
-        highlightedFileItem = nil
-    }
+  init() {
+    highlightedFileItem = nil
+  }
 
 }

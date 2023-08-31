@@ -15,10 +15,10 @@ import SwiftUI
 /// When selecting a file it will open in the editor.
 ///
 struct ProjectNavigatorView: View {
-    var body: some View {
-        ProjectNavigatorOutlineView()
-            .safeAreaInset(edge: .bottom, spacing: 0) {
-                ProjectNavigatorToolbarBottom()
-            }
-    }
+  var body: some View {
+    ProjectNavigatorOutlineView()
+      .safeAreaInset(edge: .bottom, spacing: 0) {
+        ProjectNavigatorToolbarBottom()
+      }
+  }
 }

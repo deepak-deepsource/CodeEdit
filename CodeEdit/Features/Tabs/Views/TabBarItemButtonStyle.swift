@@ -8,19 +8,21 @@
 import SwiftUI
 
 struct TabBarItemButtonStyle: ButtonStyle {
-    @Environment(\.colorScheme)
-    var colorScheme
+  @Environment(\.colorScheme)
+  var colorScheme
 
-    @Binding private var isPressing: Bool
+  @Binding private var isPressing: Bool
 
-    init(isPressing: Binding<Bool>) {
-        self._isPressing = isPressing
-    }
+  init(isPressing: Binding<Bool>) {
+    self._isPressing = isPressing
+  }
 
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .onChange(of: configuration.isPressed, perform: { isPressed in
-                self.isPressing = isPressed
-            })
-    }
+  func makeBody(configuration: Configuration) -> some View {
+    configuration.label
+      .onChange(
+        of: configuration.isPressed,
+        perform: { isPressed in
+          self.isPressing = isPressed
+        })
+  }
 }

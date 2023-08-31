@@ -8,18 +8,18 @@
 import Foundation
 
 struct GitHubComment: Codable {
-    let id: Int
-    let url: URL
-    let htmlURL: URL
-    let body: String
-    let user: GitHubUser
-    let createdAt: Date
-    let updatedAt: Date
+  let id: Int
+  let url: URL
+  let htmlURL: URL
+  let body: String
+  let user: GitHubUser
+  let createdAt: Date
+  let updatedAt: Date
 
-    enum CodingKeys: String, CodingKey {
-        case id, url, body, user
-        case htmlURL = "html_url"
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
-    }
+  enum CodingKeys: String, CodingKey {
+    case id, url, body, user
+    case htmlURL = "html_url"
+    case createdAt = "created_at"
+    case updatedAt = "updated_at"
+  }
 }

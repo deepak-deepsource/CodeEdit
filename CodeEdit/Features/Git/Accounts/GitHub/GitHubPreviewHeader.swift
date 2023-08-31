@@ -13,13 +13,14 @@ import Foundation
 ///
 /// - Note: Preview APIs are subject to change.
 enum GitHubPreviewHeader {
-    /// The `Reactions` preview header provides reactions in `Comment`s.
-    case reactions
+  /// The `Reactions` preview header provides reactions in `Comment`s.
+  case reactions
 
-    var header: GitHTTPHeader {
-        switch self {
-        case .reactions:
-            return GitHTTPHeader(headerField: "Accept", value: "application/vnd.github.squirrel-girl-preview")
-        }
+  var header: GitHTTPHeader {
+    switch self {
+    case .reactions:
+      return GitHTTPHeader(
+        headerField: "Accept", value: "application/vnd.github.squirrel-girl-preview")
     }
+  }
 }

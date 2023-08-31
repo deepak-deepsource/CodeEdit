@@ -12,17 +12,17 @@ import SwiftUI
 /// It can also be easily checked if the current first selector accepts some event.
 @propertyWrapper
 struct FirstResponder: DynamicProperty {
-    @StateObject var helper = HelperClass()
+  @StateObject var helper = HelperClass()
 
-    var wrappedValue: NSResponder? {
-        helper.responder
+  var wrappedValue: NSResponder? {
+    helper.responder
+  }
+
+  class HelperClass: ObservableObject {
+    @Published var responder: NSResponder? = NSApp.keyWindow?.firstResponder
+
+    init() {
+      NSApp.publisher(for: \.keyWindow?.firstResponder).assign(to: &$responder)
     }
-
-    class HelperClass: ObservableObject {
-        @Published var responder: NSResponder? = NSApp.keyWindow?.firstResponder
-
-        init() {
-            NSApp.publisher(for: \.keyWindow?.firstResponder).assign(to: &$responder)
-        }
-    }
+  }
 }

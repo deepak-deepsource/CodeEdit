@@ -10,62 +10,64 @@ import Foundation
 
 final class QuickOpenViewModel: ObservableObject {
 
-    @Published var openQuicklyQuery: String = ""
+  @Published var openQuicklyQuery: String = ""
 
-    @Published var openQuicklyFiles: [CEWorkspaceFile] = []
+  @Published var openQuicklyFiles: [CEWorkspaceFile] = []
 
-    @Published var isShowingOpenQuicklyFiles: Bool = false
+  @Published var isShowingOpenQuicklyFiles: Bool = false
 
-    let fileURL: URL
+  let fileURL: URL
 
-    private let queue = DispatchQueue(label: "app.codeedit.CodeEdit.quickOpen.searchFiles")
+  private let queue = DispatchQueue(label: "app.codeedit.CodeEdit.quickOpen.searchFiles")
 
-    init(fileURL: URL) {
-        self.fileURL = fileURL
+  init(fileURL: URL) {
+    self.fileURL = fileURL
+  }
+
+  func fetchOpenQuickly() {
+    guard openQuicklyQuery != "" else {
+      openQuicklyFiles = []
+      self.isShowingOpenQuicklyFiles = !openQuicklyFiles.isEmpty
+      return
     }
 
-    func fetchOpenQuickly() {
-        guard openQuicklyQuery != "" else {
-            openQuicklyFiles = []
-            self.isShowingOpenQuicklyFiles = !openQuicklyFiles.isEmpty
-            return
+    queue.async { [weak self] in
+      guard let self else { return }
+      let enumerator = FileManager.default.enumerator(
+        at: self.fileURL,
+        includingPropertiesForKeys: [
+          .isRegularFileKey
+        ],
+        options: [
+          .skipsPackageDescendants
+        ]
+      )
+      if let filePaths = enumerator?.allObjects as? [URL] {
+        /// removes all filePaths which aren't regular files
+        let filteredFiles = filePaths.filter { url in
+          do {
+            let values = try url.resourceValues(forKeys: [.isRegularFileKey])
+            return (values.isRegularFile ?? false)
+          } catch {
+            return false
+          }
         }
 
-        queue.async { [weak self] in
-            guard let self else { return }
-            let enumerator = FileManager.default.enumerator(
-                at: self.fileURL,
-                includingPropertiesForKeys: [
-                    .isRegularFileKey
-                ],
-                options: [
-                    .skipsPackageDescendants
-                ]
-            )
-            if let filePaths = enumerator?.allObjects as? [URL] {
-                /// removes all filePaths which aren't regular files
-                let filteredFiles = filePaths.filter { url in
-                    do {
-                        let values = try url.resourceValues(forKeys: [.isRegularFileKey])
-                        return (values.isRegularFile ?? false)
-                    } catch {
-                        return false
-                    }
-                }
+        /// sorts the filtered filePaths with the FuzzySearch
+        Task {
+          let orderedFiles = await FuzzySearch.search(
+            query: self.openQuicklyQuery, in: filteredFiles
+          )
+          .map { url in
+            CEWorkspaceFile(url: url, children: nil)
+          }
 
-                /// sorts the filtered filePaths with the FuzzySearch
-                Task {
-                    let orderedFiles = await FuzzySearch.search(query: self.openQuicklyQuery, in: filteredFiles)
-                        .map { url in
-                            CEWorkspaceFile(url: url, children: nil)
-                        }
-
-                    DispatchQueue.main.async {
-                        self.openQuicklyFiles = orderedFiles
-                        self.isShowingOpenQuicklyFiles = !self.openQuicklyFiles.isEmpty
-                    }
-                }
-            }
+          DispatchQueue.main.async {
+            self.openQuicklyFiles = orderedFiles
+            self.isShowingOpenQuicklyFiles = !self.openQuicklyFiles.isEmpty
+          }
         }
+      }
     }
+  }
 }
