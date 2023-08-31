@@ -8,31 +8,31 @@
 import SwiftUI
 
 internal struct StatusBarToggleDrawerButton: View {
-    @EnvironmentObject private var model: DebugAreaViewModel
+  @EnvironmentObject private var model: DebugAreaViewModel
 
-    init() {
-        CommandManager.shared.addCommand(
-            name: "Toggle Drawer",
-            title: "Toggle Drawer",
-            id: "open.drawer",
-            command: CommandClosureWrapper.init(closure: togglePanel)
-        )
-    }
+  init() {
+    CommandManager.shared.addCommand(
+      name: "Toggle Drawer",
+      title: "Toggle Drawer",
+      id: "open.drawer",
+      command: CommandClosureWrapper.init(closure: togglePanel)
+    )
+  }
 
-    func togglePanel() {
-        withAnimation {
-            model.isCollapsed.toggle()
-        }
+  func togglePanel() {
+    withAnimation {
+      model.isCollapsed.toggle()
     }
+  }
 
-    internal var body: some View {
-        Button {
-            togglePanel()
-        } label: {
-            Image(systemName: "square.bottomthird.inset.filled")
-        }
-        .buttonStyle(.icon)
-        .keyboardShortcut("Y", modifiers: [.command, .shift])
-        .onHover { isHovering($0) }
+  internal var body: some View {
+    Button {
+      togglePanel()
+    } label: {
+      Image(systemName: "square.bottomthird.inset.filled")
     }
+    .buttonStyle(.icon)
+    .keyboardShortcut("Y", modifiers: [.command, .shift])
+    .onHover { isHovering($0) }
+  }
 }

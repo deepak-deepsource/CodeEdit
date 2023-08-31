@@ -9,7 +9,7 @@ import Foundation
 
 extension SettingsData {
 
-    struct FeatureFlagsSettings: Codable, Hashable {
-        var useNewWindowingSystem = false
-    }
+  struct FeatureFlagsSettings: Codable, Hashable {
+    var useNewWindowingSystem = false
+  }
 }

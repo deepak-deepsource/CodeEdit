@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct StatusBarSplitTerminalButton: View {
-    @EnvironmentObject private var model: DebugAreaViewModel
+  @EnvironmentObject private var model: DebugAreaViewModel
 
-    var body: some View {
-        Button {
-            // todo
-        } label: {
-            Image(systemName: "square.split.2x1")
-                .foregroundColor(.secondary)
-        }
-        .buttonStyle(.plain)
+  var body: some View {
+    Button {
+      // todo
+    } label: {
+      Image(systemName: "square.split.2x1")
+        .foregroundColor(.secondary)
     }
+    .buttonStyle(.plain)
+  }
 }

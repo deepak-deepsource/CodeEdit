@@ -8,13 +8,13 @@
 import Foundation
 
 enum GitSortDirection: String {
-    case asc
-    case desc
+  case asc
+  case desc
 }
 
 enum GitSortType: String {
-    case created
-    case updated
-    case popularity
-    case longRunning = "long-running"
+  case created
+  case updated
+  case popularity
+  case longRunning = "long-running"
 }

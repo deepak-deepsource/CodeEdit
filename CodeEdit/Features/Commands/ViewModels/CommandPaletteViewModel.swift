@@ -11,29 +11,31 @@ import Foundation
 /// query text and list of filtered commands
 final class CommandPaletteViewModel: ObservableObject {
 
-    @Published var commandQuery: String = ""
+  @Published var commandQuery: String = ""
 
-    @Published var selected: Command?
+  @Published var selected: Command?
 
-    @Published var isShowingCommandsList: Bool = true
+  @Published var isShowingCommandsList: Bool = true
 
-    @Published var filteredCommands: [Command] = []
+  @Published var filteredCommands: [Command] = []
 
-    init() {}
+  init() {}
 
-    func reset() {
-        commandQuery = ""
-        selected = nil
-        filteredCommands = CommandManager.shared.commands
+  func reset() {
+    commandQuery = ""
+    selected = nil
+    filteredCommands = CommandManager.shared.commands
+  }
+
+  func fetchMatchingCommands(val: String) {
+    if val == "" {
+      self.filteredCommands = CommandManager.shared.commands
+      return
     }
-
-    func fetchMatchingCommands(val: String) {
-        if val == "" {
-            self.filteredCommands = CommandManager.shared.commands
-            return
-        }
-        self.filteredCommands = CommandManager.shared.commands.filter { $0.title.localizedCaseInsensitiveContains(val) }
-        self.selected = self.filteredCommands.first
-
+    self.filteredCommands = CommandManager.shared.commands.filter {
+      $0.title.localizedCaseInsensitiveContains(val)
     }
+    self.selected = self.filteredCommands.first
+
+  }
 }

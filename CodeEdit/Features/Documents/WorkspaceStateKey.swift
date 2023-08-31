@@ -6,12 +6,12 @@
 //
 
 enum WorkspaceStateKey: String {
-    case debugAreaCollapsed
-    case debugAreaMaximized
-    case debugAreaHeight
-    case openTabs
-    case workspaceWindowSize
-    case splitViewWidth
-    case navigatorCollapsed
-    case inspectorCollapsed
+  case debugAreaCollapsed
+  case debugAreaMaximized
+  case debugAreaHeight
+  case openTabs
+  case workspaceWindowSize
+  case splitViewWidth
+  case navigatorCollapsed
+  case inspectorCollapsed
 }

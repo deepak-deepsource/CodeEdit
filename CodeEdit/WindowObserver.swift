@@ -9,42 +9,44 @@ import SwiftUI
 
 struct WindowObserver<Content: View>: View {
 
-    var window: NSWindow
+  var window: NSWindow
 
-    @ViewBuilder var content: Content
+  @ViewBuilder var content: Content
 
-    /// The fullscreen state of the NSWindow.
-    /// This will be passed into all child views as an environment variable.
-    @State private var isFullscreen = false
+  /// The fullscreen state of the NSWindow.
+  /// This will be passed into all child views as an environment variable.
+  @State private var isFullscreen = false
 
-    @AppSettings(\.general.tabBarStyle)
-    var tabBarStyle
+  @AppSettings(\.general.tabBarStyle)
+  var tabBarStyle
 
-    @State var modifierFlags: NSEvent.ModifierFlags = []
+  @State var modifierFlags: NSEvent.ModifierFlags = []
 
-    var body: some View {
-        content
-            .environment(\.modifierKeys, modifierFlags.intersection(.deviceIndependentFlagsMask))
-            .onReceive(NSEvent.publisher(scope: .local, matching: .flagsChanged)) { output in
-                modifierFlags = output.modifierFlags
-            }
-            .environment(\.window, window)
-            .environment(\.isFullscreen, isFullscreen)
-            .onReceive(NotificationCenter.default.publisher(for: NSWindow.didEnterFullScreenNotification)) { _ in
-                self.isFullscreen = true
-            }
-            .onReceive(NotificationCenter.default.publisher(for: NSWindow.willExitFullScreenNotification)) { _ in
-                self.isFullscreen = false
-            }
-            // When tab bar style is changed, update NSWindow configuration as follows.
-            .onChange(of: tabBarStyle) { newStyle in
-                DispatchQueue.main.async {
-                    if newStyle == .native {
-                        window.titlebarSeparatorStyle = .none
-                    } else {
-                        window.titlebarSeparatorStyle = .automatic
-                    }
-                }
-            }
+  var body: some View {
+    content
+      .environment(\.modifierKeys, modifierFlags.intersection(.deviceIndependentFlagsMask))
+      .onReceive(NSEvent.publisher(scope: .local, matching: .flagsChanged)) { output in
+        modifierFlags = output.modifierFlags
+      }
+      .environment(\.window, window)
+      .environment(\.isFullscreen, isFullscreen)
+      .onReceive(NotificationCenter.default.publisher(for: NSWindow.didEnterFullScreenNotification))
+    { _ in
+      self.isFullscreen = true
     }
+      .onReceive(NotificationCenter.default.publisher(for: NSWindow.willExitFullScreenNotification))
+    { _ in
+      self.isFullscreen = false
+    }
+      // When tab bar style is changed, update NSWindow configuration as follows.
+      .onChange(of: tabBarStyle) { newStyle in
+        DispatchQueue.main.async {
+          if newStyle == .native {
+            window.titlebarSeparatorStyle = .none
+          } else {
+            window.titlebarSeparatorStyle = .automatic
+          }
+        }
+      }
+  }
 }

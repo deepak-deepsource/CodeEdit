@@ -9,12 +9,12 @@ import SwiftUI
 
 struct SettingsInjector<Content: View>: View {
 
-    @ObservedObject var settings = Settings.shared
+  @ObservedObject var settings = Settings.shared
 
-    @ViewBuilder var content: Content
+  @ViewBuilder var content: Content
 
-    var body: some View {
-        content
-            .environment(\.settings, settings.preferences)
-    }
+  var body: some View {
+    content
+      .environment(\.settings, settings.preferences)
+  }
 }

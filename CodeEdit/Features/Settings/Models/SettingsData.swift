@@ -22,46 +22,52 @@ import SwiftUI
 ///  and providing a default value. Otherwise all settings get overridden.
 struct SettingsData: Codable, Hashable {
 
-    /// The general global setting
-    var general: GeneralSettings = .init()
+  /// The general global setting
+  var general: GeneralSettings = .init()
 
-    /// The global settings for text editing
-    var accounts: AccountsSettings = .init()
+  /// The global settings for text editing
+  var accounts: AccountsSettings = .init()
 
-    /// The global settings for themes
-    var theme: ThemeSettings = .init()
+  /// The global settings for themes
+  var theme: ThemeSettings = .init()
 
-    /// The global settings for the terminal emulator
-    var terminal: TerminalSettings = .init()
+  /// The global settings for the terminal emulator
+  var terminal: TerminalSettings = .init()
 
-    /// The global settings for text editing
-    var textEditing: TextEditingSettings = .init()
+  /// The global settings for text editing
+  var textEditing: TextEditingSettings = .init()
 
-    /// The global settings for text editing
-    var sourceControl: SourceControlSettings = .init()
+  /// The global settings for text editing
+  var sourceControl: SourceControlSettings = .init()
 
-    /// The global settings for keybindings
-    var keybindings: KeybindingsSettings = .init()
+  /// The global settings for keybindings
+  var keybindings: KeybindingsSettings = .init()
 
-    /// Featureflags settings
-    var featureFlags: FeatureFlagsSettings = .init()
+  /// Featureflags settings
+  var featureFlags: FeatureFlagsSettings = .init()
 
-    /// Default initializer
-    init() {}
+  /// Default initializer
+  init() {}
 
-    /// Explicit decoder init for setting default values when key is not present in `JSON`
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.general = try container.decodeIfPresent(GeneralSettings.self, forKey: .general) ?? .init()
-        self.accounts = try container.decodeIfPresent(AccountsSettings.self, forKey: .accounts) ?? .init()
-        self.theme = try container.decodeIfPresent(ThemeSettings.self, forKey: .theme) ?? .init()
-        self.terminal = try container.decodeIfPresent(TerminalSettings.self, forKey: .terminal) ?? .init()
-        self.textEditing = try container.decodeIfPresent(TextEditingSettings.self, forKey: .textEditing) ?? .init()
-        self.sourceControl = try container.decodeIfPresent(
-            SourceControlSettings.self,
-            forKey: .sourceControl
-        ) ?? .init()
-        self.keybindings = try container.decodeIfPresent(KeybindingsSettings.self, forKey: .keybindings) ?? .init()
-        self.featureFlags = try container.decodeIfPresent(FeatureFlagsSettings.self, forKey: .featureFlags) ?? .init()
-    }
+  /// Explicit decoder init for setting default values when key is not present in `JSON`
+  init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+    self.general = try container.decodeIfPresent(GeneralSettings.self, forKey: .general) ?? .init()
+    self.accounts =
+      try container.decodeIfPresent(AccountsSettings.self, forKey: .accounts) ?? .init()
+    self.theme = try container.decodeIfPresent(ThemeSettings.self, forKey: .theme) ?? .init()
+    self.terminal =
+      try container.decodeIfPresent(TerminalSettings.self, forKey: .terminal) ?? .init()
+    self.textEditing =
+      try container.decodeIfPresent(TextEditingSettings.self, forKey: .textEditing) ?? .init()
+    self.sourceControl =
+      try container.decodeIfPresent(
+        SourceControlSettings.self,
+        forKey: .sourceControl
+      ) ?? .init()
+    self.keybindings =
+      try container.decodeIfPresent(KeybindingsSettings.self, forKey: .keybindings) ?? .init()
+    self.featureFlags =
+      try container.decodeIfPresent(FeatureFlagsSettings.self, forKey: .featureFlags) ?? .init()
+  }
 }
