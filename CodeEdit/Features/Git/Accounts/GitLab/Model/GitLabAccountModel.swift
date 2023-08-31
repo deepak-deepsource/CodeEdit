@@ -8,7 +8,7 @@
 import Foundation
 
 extension GitLabAccount {
-    /**
+  /**
      Fetches the Projects for which the authenticated user is a member.
      - parameter page: Current page for project pagination. `1` by default.
      - parameter perPage: Number of projects per page. `100` by default.
@@ -22,75 +22,75 @@ extension GitLabAccount {
      set to `true` to only show simple info.
      - parameter completion: Callback for the outcome of the fetch.
      */
-    func projects(
-        _ session: GitURLSession = URLSession.shared,
-        page: String = "1",
-        perPage: String = "20",
-        archived: Bool = false,
-        visibility: GitLabVisibility = GitLabVisibility.all,
-        orderBy: GitLabOrderBy = GitLabOrderBy.creationDate,
-        sort: GitLabSort = GitLabSort.descending,
-        search: String = "",
-        simple: Bool = false,
-        completion: @escaping (_ response: Result<[GitLabProject], Error>) -> Void
-    ) -> GitURLSessionDataTaskProtocol? {
-        let router = GitLabProjectRouter.readAuthenticatedProjects(
-            configuration: configuration,
-            page: page,
-            perPage: perPage,
-            archived: archived,
-            visibility: visibility,
-            orderBy: orderBy,
-            sort: sort,
-            search: search,
-            simple: simple
-        )
-        return router.load(
-            session,
-            dateDecodingStrategy: .formatted(GitTime.rfc3339DateFormatter),
-            expectedResultType: GitLabProject.self
-        ) { json, error in
+  func projects(
+    _ session: GitURLSession = URLSession.shared,
+    page: String = "1",
+    perPage: String = "20",
+    archived: Bool = false,
+    visibility: GitLabVisibility = GitLabVisibility.all,
+    orderBy: GitLabOrderBy = GitLabOrderBy.creationDate,
+    sort: GitLabSort = GitLabSort.descending,
+    search: String = "",
+    simple: Bool = false,
+    completion: @escaping (_ response: Result<[GitLabProject], Error>) -> Void
+  ) -> GitURLSessionDataTaskProtocol? {
+    let router = GitLabProjectRouter.readAuthenticatedProjects(
+      configuration: configuration,
+      page: page,
+      perPage: perPage,
+      archived: archived,
+      visibility: visibility,
+      orderBy: orderBy,
+      sort: sort,
+      search: search,
+      simple: simple
+    )
+    return router.load(
+      session,
+      dateDecodingStrategy: .formatted(GitTime.rfc3339DateFormatter),
+      expectedResultType: GitLabProject.self
+    ) { json, error in
 
-            if let error {
-                completion(Result.failure(error))
-            }
+      if let error {
+        completion(Result.failure(error))
+      }
 
-            if let json {
-                completion(Result.success([json]))
-            }
-        }
+      if let json {
+        completion(Result.success([json]))
+      }
     }
+  }
 
-    /**
+  /**
      Fetches project for a specified ID.
      - parameter id: The ID or namespace/project-name of the project.
      Make sure that the namespace/project-name is URL-encoded, eg. "%2F" for "/".
      - parameter completion: Callback for the outcome of the fetch.
      */
-    func project(
-        _ session: GitURLSession = URLSession.shared,
-        id: String,
-        completion: @escaping (_ response: Result<GitLabProject, Error>) -> Void
-    ) -> GitURLSessionDataTaskProtocol? {
-        let router = GitLabProjectRouter.readSingleProject(configuration: configuration, id: id)
+  func project(
+    _ session: GitURLSession = URLSession.shared,
+    id: String,
+    completion: @escaping (_ response: Result<GitLabProject, Error>) -> Void
+  ) -> GitURLSessionDataTaskProtocol? {
+    let router = GitLabProjectRouter.readSingleProject(configuration: configuration, id: id)
 
-        return router.load(
-            session,
-            dateDecodingStrategy: .formatted(GitTime.rfc3339DateFormatter),
-            expectedResultType: GitLabProject.self
-        ) { json, error in
+    return router.load(
+      session,
+      dateDecodingStrategy: .formatted(GitTime.rfc3339DateFormatter),
+      expectedResultType: GitLabProject.self
+    ) { json, error in
 
-            if let error {
-                completion(Result.failure(error))
-            }
+      if let error {
+        completion(Result.failure(error))
+      }
 
-            if let json {
-                completion(Result.success(json))
-            }
-        }
+      if let json {
+        completion(Result.success(json))
+      }
     }
+  }
 
-    /**
+  /**
      Fetches the Projects which the authenticated user can see.
      - parameter page: Current page for project pagination. `1` by default.
      - parameter perPage: Number of projects per page. `100` by default.
@@ -104,47 +104,47 @@ extension GitLabAccount {
      set to `true` to only show simple info.
      - parameter completion: Callback for the outcome of the fetch.
      */
-    func visibleProjects(
-        _ session: GitURLSession = URLSession.shared,
-        page: String = "1",
-        perPage: String = "20",
-        archived: Bool = false,
-        visibility: GitLabVisibility = GitLabVisibility.all,
-        orderBy: GitLabOrderBy = GitLabOrderBy.creationDate,
-        sort: GitLabSort = GitLabSort.descending,
-        search: String = "",
-        simple: Bool = false,
-        completion: @escaping (_ response: Result<GitLabProject, Error>) -> Void
-    ) -> GitURLSessionDataTaskProtocol? {
-        let router = GitLabProjectRouter.readVisibleProjects(
-            configuration: configuration,
-            page: page,
-            perPage: perPage,
-            archived: archived,
-            visibility: visibility,
-            orderBy: orderBy,
-            sort: sort,
-            search: search,
-            simple: simple
-        )
+  func visibleProjects(
+    _ session: GitURLSession = URLSession.shared,
+    page: String = "1",
+    perPage: String = "20",
+    archived: Bool = false,
+    visibility: GitLabVisibility = GitLabVisibility.all,
+    orderBy: GitLabOrderBy = GitLabOrderBy.creationDate,
+    sort: GitLabSort = GitLabSort.descending,
+    search: String = "",
+    simple: Bool = false,
+    completion: @escaping (_ response: Result<GitLabProject, Error>) -> Void
+  ) -> GitURLSessionDataTaskProtocol? {
+    let router = GitLabProjectRouter.readVisibleProjects(
+      configuration: configuration,
+      page: page,
+      perPage: perPage,
+      archived: archived,
+      visibility: visibility,
+      orderBy: orderBy,
+      sort: sort,
+      search: search,
+      simple: simple
+    )
 
-        return router.load(
-            session,
-            dateDecodingStrategy: .formatted(GitTime.rfc3339DateFormatter),
-            expectedResultType: GitLabProject.self
-        ) { json, error in
+    return router.load(
+      session,
+      dateDecodingStrategy: .formatted(GitTime.rfc3339DateFormatter),
+      expectedResultType: GitLabProject.self
+    ) { json, error in
 
-            if let error {
-                completion(Result.failure(error))
-            }
+      if let error {
+        completion(Result.failure(error))
+      }
 
-            if let json {
-                completion(Result.success(json))
-            }
-        }
+      if let json {
+        completion(Result.success(json))
+      }
     }
+  }
 
-    /**
+  /**
      Fetches the Projects which are owned by the authenticated user.
      - parameter page: Current page for project pagination. `1` by default.
      - parameter perPage: Number of projects per page. `100` by default.
@@ -158,47 +158,47 @@ extension GitLabAccount {
      set to `true` to only show simple info.
      - parameter completion: Callback for the outcome of the fetch.
      */
-    func ownedProjects(
-        _ session: GitURLSession = URLSession.shared,
-        page: String = "1",
-        perPage: String = "20",
-        archived: Bool = false,
-        visibility: GitLabVisibility = GitLabVisibility.all,
-        orderBy: GitLabOrderBy = GitLabOrderBy.creationDate,
-        sort: GitLabSort = GitLabSort.descending,
-        search: String = "",
-        simple: Bool = false,
-        completion: @escaping (_ response: Result<GitLabProject, Error>) -> Void
-    ) -> GitURLSessionDataTaskProtocol? {
-        let router = GitLabProjectRouter.readOwnedProjects(
-            configuration: configuration,
-            page: page,
-            perPage: perPage,
-            archived: archived,
-            visibility: visibility,
-            orderBy: orderBy,
-            sort: sort,
-            search: search,
-            simple: simple
-        )
+  func ownedProjects(
+    _ session: GitURLSession = URLSession.shared,
+    page: String = "1",
+    perPage: String = "20",
+    archived: Bool = false,
+    visibility: GitLabVisibility = GitLabVisibility.all,
+    orderBy: GitLabOrderBy = GitLabOrderBy.creationDate,
+    sort: GitLabSort = GitLabSort.descending,
+    search: String = "",
+    simple: Bool = false,
+    completion: @escaping (_ response: Result<GitLabProject, Error>) -> Void
+  ) -> GitURLSessionDataTaskProtocol? {
+    let router = GitLabProjectRouter.readOwnedProjects(
+      configuration: configuration,
+      page: page,
+      perPage: perPage,
+      archived: archived,
+      visibility: visibility,
+      orderBy: orderBy,
+      sort: sort,
+      search: search,
+      simple: simple
+    )
 
-        return router.load(
-            session,
-            dateDecodingStrategy: .formatted(GitTime.rfc3339DateFormatter),
-            expectedResultType: GitLabProject.self
-        ) { json, error in
+    return router.load(
+      session,
+      dateDecodingStrategy: .formatted(GitTime.rfc3339DateFormatter),
+      expectedResultType: GitLabProject.self
+    ) { json, error in
 
-            if let error {
-                completion(Result.failure(error))
-            }
+      if let error {
+        completion(Result.failure(error))
+      }
 
-            if let json {
-                completion(Result.success(json))
-            }
-        }
+      if let json {
+        completion(Result.success(json))
+      }
     }
+  }
 
-    /**
+  /**
      Fetches the Projects which are starred by the authenticated user.
      - parameter page: Current page for project pagination. `1` by default.
      - parameter perPage: Number of projects per page. `100` by default.
@@ -212,47 +212,47 @@ extension GitLabAccount {
      Default is false, set to `true` to only show simple info.
      - parameter completion: Callback for the outcome of the fetch.
      */
-    func starredProjects(
-        _ session: GitURLSession = URLSession.shared,
-        page: String = "1",
-        perPage: String = "20",
-        archived: Bool = false,
-        visibility: GitLabVisibility = GitLabVisibility.all,
-        orderBy: GitLabOrderBy = GitLabOrderBy.creationDate,
-        sort: GitLabSort = GitLabSort.descending,
-        search: String = "",
-        simple: Bool = false,
-        completion: @escaping (_ response: Result<GitLabProject, Error>) -> Void
-    ) -> GitURLSessionDataTaskProtocol? {
-        let router = GitLabProjectRouter.readStarredProjects(
-            configuration: configuration,
-            page: page,
-            perPage: perPage,
-            archived: archived,
-            visibility: visibility,
-            orderBy: orderBy,
-            sort: sort,
-            search: search,
-            simple: simple
-        )
+  func starredProjects(
+    _ session: GitURLSession = URLSession.shared,
+    page: String = "1",
+    perPage: String = "20",
+    archived: Bool = false,
+    visibility: GitLabVisibility = GitLabVisibility.all,
+    orderBy: GitLabOrderBy = GitLabOrderBy.creationDate,
+    sort: GitLabSort = GitLabSort.descending,
+    search: String = "",
+    simple: Bool = false,
+    completion: @escaping (_ response: Result<GitLabProject, Error>) -> Void
+  ) -> GitURLSessionDataTaskProtocol? {
+    let router = GitLabProjectRouter.readStarredProjects(
+      configuration: configuration,
+      page: page,
+      perPage: perPage,
+      archived: archived,
+      visibility: visibility,
+      orderBy: orderBy,
+      sort: sort,
+      search: search,
+      simple: simple
+    )
 
-        return router.load(
-            session,
-            dateDecodingStrategy: .formatted(GitTime.rfc3339DateFormatter),
-            expectedResultType: GitLabProject.self
-        ) { json, error in
+    return router.load(
+      session,
+      dateDecodingStrategy: .formatted(GitTime.rfc3339DateFormatter),
+      expectedResultType: GitLabProject.self
+    ) { json, error in
 
-            if let error {
-                completion(Result.failure(error))
-            }
+      if let error {
+        completion(Result.failure(error))
+      }
 
-            if let json {
-                completion(Result.success(json))
-            }
-        }
+      if let json {
+        completion(Result.success(json))
+      }
     }
+  }
 
-    /**
+  /**
      Fetches all GitLab projects in the server **(admin only)**.
      - parameter page: Current page for project pagination. `1` by default.
      - parameter perPage: Number of projects per page. `100` by default.
@@ -266,80 +266,80 @@ extension GitLabAccount {
      Default is false, set to `true` to only show simple info.
      - parameter completion: Callback for the outcome of the fetch.
      */
-    func allProjects(
-        _ session: GitURLSession = URLSession.shared,
-        page: String = "1",
-        perPage: String = "20",
-        archived: Bool = false,
-        visibility: GitLabVisibility = GitLabVisibility.all,
-        orderBy: GitLabOrderBy = GitLabOrderBy.creationDate,
-        sort: GitLabSort = GitLabSort.descending,
-        search: String = "",
-        simple: Bool = false,
-        completion: @escaping (_ response: Result<GitLabProject, Error>) -> Void
-    ) -> GitURLSessionDataTaskProtocol? {
-        let router = GitLabProjectRouter.readAllProjects(
-            configuration: configuration,
-            page: page,
-            perPage: perPage,
-            archived: archived,
-            visibility: visibility,
-            orderBy: orderBy,
-            sort: sort,
-            search: search,
-            simple: simple
-        )
+  func allProjects(
+    _ session: GitURLSession = URLSession.shared,
+    page: String = "1",
+    perPage: String = "20",
+    archived: Bool = false,
+    visibility: GitLabVisibility = GitLabVisibility.all,
+    orderBy: GitLabOrderBy = GitLabOrderBy.creationDate,
+    sort: GitLabSort = GitLabSort.descending,
+    search: String = "",
+    simple: Bool = false,
+    completion: @escaping (_ response: Result<GitLabProject, Error>) -> Void
+  ) -> GitURLSessionDataTaskProtocol? {
+    let router = GitLabProjectRouter.readAllProjects(
+      configuration: configuration,
+      page: page,
+      perPage: perPage,
+      archived: archived,
+      visibility: visibility,
+      orderBy: orderBy,
+      sort: sort,
+      search: search,
+      simple: simple
+    )
 
-        return router.load(
-            session,
-            dateDecodingStrategy: .formatted(GitTime.rfc3339DateFormatter),
-            expectedResultType: GitLabProject.self
-        ) { json, error in
+    return router.load(
+      session,
+      dateDecodingStrategy: .formatted(GitTime.rfc3339DateFormatter),
+      expectedResultType: GitLabProject.self
+    ) { json, error in
 
-            if let error {
-                completion(Result.failure(error))
-            }
+      if let error {
+        completion(Result.failure(error))
+      }
 
-            if let json {
-                completion(Result.success(json))
-            }
-        }
+      if let json {
+        completion(Result.success(json))
+      }
     }
+  }
 
-    /**
+  /**
      Fetches the events for the specified project. Sorted from newest to oldest.
      - parameter page: Current page for project pagination. `1` by default.
      - parameter perPage: Number of projects per page. `100` by default.
      - parameter id: The ID or NAMESPACE/PROJECT_NAME of the project.
      - parameter completion: Callback for the outcome of the fetch.
      */
-    func projectEvents(
-        _ session: GitURLSession = URLSession.shared,
-        id: String,
-        page: String = "1",
-        perPage: String = "20",
-        completion: @escaping (_ response: Result<GitLabEvent, Error>) -> Void
-    ) -> GitURLSessionDataTaskProtocol? {
-        let router = GitLabProjectRouter.readProjectEvents(
-            configuration: configuration,
-            id: id,
-            page: page,
-            perPage: perPage
-        )
+  func projectEvents(
+    _ session: GitURLSession = URLSession.shared,
+    id: String,
+    page: String = "1",
+    perPage: String = "20",
+    completion: @escaping (_ response: Result<GitLabEvent, Error>) -> Void
+  ) -> GitURLSessionDataTaskProtocol? {
+    let router = GitLabProjectRouter.readProjectEvents(
+      configuration: configuration,
+      id: id,
+      page: page,
+      perPage: perPage
+    )
 
-        return router.load(
-            session,
-            dateDecodingStrategy: .formatted(GitTime.rfc3339DateFormatter),
-            expectedResultType: GitLabEvent.self
-        ) { json, error in
+    return router.load(
+      session,
+      dateDecodingStrategy: .formatted(GitTime.rfc3339DateFormatter),
+      expectedResultType: GitLabEvent.self
+    ) { json, error in
 
-            if let error {
-                completion(Result.failure(error))
-            }
+      if let error {
+        completion(Result.failure(error))
+      }
 
-            if let json {
-                completion(Result.success(json))
-            }
-        }
+      if let json {
+        completion(Result.success(json))
+      }
     }
+  }
 }

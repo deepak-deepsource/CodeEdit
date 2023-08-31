@@ -1,15 +1,15 @@
 import SwiftUI
 
 extension String {
-    func localized(_ custom: String? = nil) -> LocalizedStringKey {
-        if let custom {
-            return LocalizedStringKey(custom)
-        } else {
-            return LocalizedStringKey(self)
-        }
+  func localized(_ custom: String? = nil) -> LocalizedStringKey {
+    if let custom {
+      return LocalizedStringKey(custom)
+    } else {
+      return LocalizedStringKey(self)
     }
+  }
 }
 
 extension LocalizedStringKey {
-    static let helloWorld = "Hello, world!".localized()
+  static let helloWorld = "Hello, world!".localized()
 }

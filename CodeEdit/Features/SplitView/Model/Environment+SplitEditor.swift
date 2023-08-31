@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct SplitEditorEnvironmentKey: EnvironmentKey {
-    static var defaultValue: (Edge, TabGroupData) -> Void = { _, _ in }
+  static var defaultValue: (Edge, TabGroupData) -> Void = { _, _ in }
 }
 
 extension EnvironmentValues {
-    var splitEditor: SplitEditorEnvironmentKey.Value {
-        get { self[SplitEditorEnvironmentKey.self] }
-        set { self[SplitEditorEnvironmentKey.self] = newValue }
-    }
+  var splitEditor: SplitEditorEnvironmentKey.Value {
+    get { self[SplitEditorEnvironmentKey.self] }
+    set { self[SplitEditorEnvironmentKey.self] = newValue }
+  }
 }

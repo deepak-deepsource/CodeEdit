@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct ActiveTabGroupEnvironmentKey: EnvironmentKey {
-    static var defaultValue = false
+  static var defaultValue = false
 }
 
 extension EnvironmentValues {
-    var isActiveTabGroup: Bool {
-        get { self[ActiveTabGroupEnvironmentKey.self] }
-        set { self[ActiveTabGroupEnvironmentKey.self] = newValue }
-    }
+  var isActiveTabGroup: Bool {
+    get { self[ActiveTabGroupEnvironmentKey.self] }
+    set { self[ActiveTabGroupEnvironmentKey.self] = newValue }
+  }
 }

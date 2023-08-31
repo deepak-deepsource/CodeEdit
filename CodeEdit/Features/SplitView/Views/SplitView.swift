@@ -8,22 +8,22 @@
 import SwiftUI
 
 struct SplitView<Content: View>: View {
-    var axis: Axis
-    var content: Content
+  var axis: Axis
+  var content: Content
 
-    init(axis: Axis, @ViewBuilder content: () -> Content) {
-        self.axis = axis
-        self.content = content()
+  init(axis: Axis, @ViewBuilder content: () -> Content) {
+    self.axis = axis
+    self.content = content()
+  }
+
+  @State var viewController: () -> SplitViewController? = { nil }
+
+  var body: some View {
+    VStack {
+      content.variadic { children in
+        SplitViewControllerView(axis: axis, children: children, viewController: $viewController)
+      }
     }
-
-    @State var viewController: () -> SplitViewController? = { nil }
-
-    var body: some View {
-        VStack {
-            content.variadic { children in
-                SplitViewControllerView(axis: axis, children: children, viewController: $viewController)
-            }
-        }
-        ._trait(SplitViewControllerLayoutValueKey.self, viewController)
-    }
+    ._trait(SplitViewControllerLayoutValueKey.self, viewController)
+  }
 }

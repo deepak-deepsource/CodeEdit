@@ -9,13 +9,13 @@ import SwiftUI
 
 struct StatusBarEncodingSelector: View {
 
-    var body: some View {
-        Menu {
-            // UTF 8, ASCII, ...
-        } label: {
-            Text("UTF 8")
-        }
-        .menuStyle(StatusBarMenuStyle())
-        .onHover { isHovering($0) }
+  var body: some View {
+    Menu {
+      // UTF 8, ASCII, ...
+    } label: {
+      Text("UTF 8")
     }
+    .menuStyle(StatusBarMenuStyle())
+    .onHover { isHovering($0) }
+  }
 }

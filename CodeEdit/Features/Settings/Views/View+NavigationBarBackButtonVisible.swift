@@ -8,31 +8,31 @@
 import SwiftUI
 
 struct NavigationBarBackButtonVisible: ViewModifier {
-    @Environment(\.presentationMode)
-    var presentationMode
-    @EnvironmentObject var model: SettingsViewModel
+  @Environment(\.presentationMode)
+  var presentationMode
+  @EnvironmentObject var model: SettingsViewModel
 
-    func body(content: Content) -> some View {
-        content
-        .toolbar {
-            ToolbarItem(placement: .navigation) {
-                Button {
-                    print(self.presentationMode.wrappedValue)
-                    self.presentationMode.wrappedValue.dismiss()
-                } label: {
-                    Image(systemName: "chevron.left")
-                }
-            }
+  func body(content: Content) -> some View {
+    content
+      .toolbar {
+        ToolbarItem(placement: .navigation) {
+          Button {
+            print(self.presentationMode.wrappedValue)
+            self.presentationMode.wrappedValue.dismiss()
+          } label: {
+            Image(systemName: "chevron.left")
+          }
         }
-        .hideSidebarToggle()
-        .onAppear {
-            model.backButtonVisible = true
-        }
-    }
+      }
+      .hideSidebarToggle()
+      .onAppear {
+        model.backButtonVisible = true
+      }
+  }
 }
 
 extension View {
-    func navigationBarBackButtonVisible() -> some View {
-        modifier(NavigationBarBackButtonVisible())
-    }
+  func navigationBarBackButtonVisible() -> some View {
+    modifier(NavigationBarBackButtonVisible())
+  }
 }
