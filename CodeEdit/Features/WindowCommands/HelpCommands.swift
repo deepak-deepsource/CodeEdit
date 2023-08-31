@@ -8,20 +8,20 @@
 import SwiftUI
 
 struct HelpCommands: Commands {
-    var body: some Commands {
-        CommandGroup(after: .help) {
-            Button("What's New in CodeEdit") {
+  var body: some Commands {
+    CommandGroup(after: .help) {
+      Button("What's New in CodeEdit") {
 
-            }
-            .disabled(true)
+      }
+      .disabled(true)
 
-            Button("Release Notes") {
-            }
-            .disabled(true)
+      Button("Release Notes") {
+      }
+      .disabled(true)
 
-            Button("Report an Issue") {
-                NSApp.sendAction(#selector(AppDelegate.openFeedback(_:)), to: nil, from: nil)
-            }
-        }
+      Button("Report an Issue") {
+        NSApp.sendAction(#selector(AppDelegate.openFeedback(_:)), to: nil, from: nil)
+      }
     }
+  }
 }

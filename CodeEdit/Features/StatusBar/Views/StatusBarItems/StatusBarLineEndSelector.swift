@@ -9,13 +9,13 @@ import SwiftUI
 
 struct StatusBarLineEndSelector: View {
 
-    var body: some View {
-        Menu {
-            // LF, CRLF
-        } label: {
-            Text("LF")
-        }
-        .menuStyle(StatusBarMenuStyle())
-        .onHover { isHovering($0) }
+  var body: some View {
+    Menu {
+      // LF, CRLF
+    } label: {
+      Text("LF")
     }
+    .menuStyle(StatusBarMenuStyle())
+    .onHover { isHovering($0) }
+  }
 }

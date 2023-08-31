@@ -10,9 +10,9 @@ import Foundation
 // TODO: DOCS (Nanashi Li)
 
 struct GitLabAccount {
-    let configuration: GitRouterConfiguration
+  let configuration: GitRouterConfiguration
 
-    init(_ config: GitRouterConfiguration = GitLabTokenConfiguration()) {
-        configuration = config
-    }
+  init(_ config: GitRouterConfiguration = GitLabTokenConfiguration()) {
+    configuration = config
+  }
 }

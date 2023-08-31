@@ -9,37 +9,37 @@ import SwiftUI
 
 struct SourceControlNavigatorView: View {
 
-    @EnvironmentObject private var workspace: WorkspaceDocument
+  @EnvironmentObject private var workspace: WorkspaceDocument
 
-    @State private var selectedSection: Int = 0
+  @State private var selectedSection: Int = 0
 
-    var body: some View {
-        VStack {
-            SegmentedControl(
-                $selectedSection,
-                options: ["Changes", "Repositories"],
-                prominent: true
-            )
-            .frame(maxWidth: .infinity)
-            .frame(height: 27)
-            .padding(.horizontal, 8)
-            .padding(.bottom, 2)
-            .overlay(alignment: .bottom) {
-                Divider()
-            }
+  var body: some View {
+    VStack {
+      SegmentedControl(
+        $selectedSection,
+        options: ["Changes", "Repositories"],
+        prominent: true
+      )
+      .frame(maxWidth: .infinity)
+      .frame(height: 27)
+      .padding(.horizontal, 8)
+      .padding(.bottom, 2)
+      .overlay(alignment: .bottom) {
+        Divider()
+      }
 
-            if selectedSection == 0 {
-                if let urlString = workspace.fileURL {
-                    SourceControlNavigatorChangesView(workspaceURL: urlString)
-                }
-            }
-
-            if selectedSection == 1 {
-                SourceControlNavigatorRepositoriesView()
-            }
+      if selectedSection == 0 {
+        if let urlString = workspace.fileURL {
+          SourceControlNavigatorChangesView(workspaceURL: urlString)
         }
-        .safeAreaInset(edge: .bottom, spacing: 0) {
-            SourceControlToolbarBottom()
-        }
+      }
+
+      if selectedSection == 1 {
+        SourceControlNavigatorRepositoriesView()
+      }
     }
+    .safeAreaInset(edge: .bottom, spacing: 0) {
+      SourceControlToolbarBottom()
+    }
+  }
 }

@@ -8,21 +8,21 @@
 import SwiftUI
 
 extension FocusedValues {
-    var navigationSplitViewVisibility: Binding<NavigationSplitViewVisibility>? {
-        get { self[NavSplitViewVisibilityFocusedValueKey.self] }
-        set { self[NavSplitViewVisibilityFocusedValueKey.self] = newValue }
-    }
+  var navigationSplitViewVisibility: Binding<NavigationSplitViewVisibility>? {
+    get { self[NavSplitViewVisibilityFocusedValueKey.self] }
+    set { self[NavSplitViewVisibilityFocusedValueKey.self] = newValue }
+  }
 
-    var inspectorVisibility: Binding<Bool>? {
-        get { self[InspectorVisibilityFocusedValueKey.self] }
-        set { self[InspectorVisibilityFocusedValueKey.self] = newValue }
-    }
+  var inspectorVisibility: Binding<Bool>? {
+    get { self[InspectorVisibilityFocusedValueKey.self] }
+    set { self[InspectorVisibilityFocusedValueKey.self] = newValue }
+  }
 
-    private struct NavSplitViewVisibilityFocusedValueKey: FocusedValueKey {
-        typealias Value = Binding<NavigationSplitViewVisibility>
-    }
+  private struct NavSplitViewVisibilityFocusedValueKey: FocusedValueKey {
+    typealias Value = Binding<NavigationSplitViewVisibility>
+  }
 
-    private struct InspectorVisibilityFocusedValueKey: FocusedValueKey {
-        typealias Value = Binding<Bool>
-    }
+  private struct InspectorVisibilityFocusedValueKey: FocusedValueKey {
+    typealias Value = Binding<Bool>
+  }
 }
